@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # vue-demo-sso
 
 ## Project setup
@@ -22,3 +23,6 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+=======
+# page-quickly-design
+>>>>>>> f9a25cc486974225915f07ef03455063ed0b951c
