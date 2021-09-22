@@ -22,17 +22,17 @@ export class BaseData {
     this.$attr = {
       ...el.attributes
     }
-    this.appednChild(el.children)
+    this.appendChild(el.children)
   }
 
-  appednChild(childrens: any) {
+  appendChild(childrens: any) {
     this.$children = []
     const queue = [ ...childrens ]
     
     while(queue.length > 0) {
       const currentData = queue.pop()
       const _baseData = new BaseData(currentData)
-      this.$children.push(_baseData)
+      this.$children.unshift(_baseData)
     }
   }
 }
