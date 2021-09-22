@@ -1,19 +1,8 @@
 import { BaseData } from "@/utils/tools/baseType.ts";
-import { mapActions, mapState } from "vuex";
+import storeMixin from "./storeMixin";
 export default {
-  computed: {
-    ...mapState("storageData",{
-      "prev": state => state.prev,
-      "next": state => state.next,
-      "baseData": state => state.baseData 
-    })
-  },
+  mixins: [ storeMixin ],
   methods: {
-    ...mapActions("storageData",[
-      "setPrev",
-      "setNext",
-      "setBaseData"
-    ]),
     //节点移动
     nodeMove(parentNode, curMoveNode) {
       //to do ..

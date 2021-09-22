@@ -45,18 +45,11 @@ export default {
           _elm.setAttribute("class", _elm.className);
         }
       }
-      if (
-        typeof e.target.className == "string" &&
-        e.target.className.indexOf(".middle-wrap-content") > -1
-      ) {
-        this.$emit("setCurrFocusELm", {});
-      } else {
-        e.target.setAttribute(
-          "class",
-          e.target.getAttribute("class") + " active"
-        );
-        this.$emit("setCurrFocusELm", e.target);
-      }
+      e.target.setAttribute(
+        "class",
+        e.target.getAttribute("class") + " active"
+      );
+      this.$emit("setCurrFocusELm", e.target);
     },
 
     handleDBLclick(e) {

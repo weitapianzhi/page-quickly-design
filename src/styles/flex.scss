@@ -1,0 +1,36 @@
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flex-position($justifyContent, $alignItems) {
+  justify-content: $justifyContent;
+  align-items: $alignItems;
+}
+
+@mixin flex-size($grow, $shrink, $basis) {
+  @if($grow) {
+    flex-grow: $grow
+  }
+  @if($shrink) {
+    flex-shrink: $shrink
+  }
+  @if($basis) {
+    flex-basis: $basis
+  }
+}
+
+.flex-row-size-1 {
+  @extend .flex-row;
+  @include flex-size(1, 0, 0)
+}
+
+.flex-column-size-1 {
+  @extend .flex-column;
+  @include flex-size(1, 0, 0)
+}
