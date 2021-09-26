@@ -1,22 +1,38 @@
 <template>
   <div class="middle-wrap">
-    <div class="middle-wrap-title">中间视图</div>
+    <div class="middle-header">
+      <div class="middle-header-l">中间视图</div>
+      <div class="middle-header-r">
+        <a-select v-model="viewType" @change="viewTypeChange">
+          <a-select-option key="1" value="界面视图">界面视图</a-select-option>
+          <a-select-option key="2" value="代码视图">代码视图</a-select-option>
+        </a-select>
+      </div>
+    </div>
     <div
-      class="middle-wrap-content"
-      @click="handleClick"
-      @dblclick="handleDBLclick"
-      @dragenter="
-        (e) => {
-          e.preventDefault();
-        }
-      "
-      @dragover="
-        (e) => {
-          e.preventDefault();
-        }
-      "
-      @drop="dropDown"
-    ></div>
+      class="middle-wrap-view"
+      v-if="viewType == '界面视图'"
+    >
+      <div
+        class="middle-wrap-content"
+        @click="handleClick"
+        @dblclick="handleDBLclick"
+        @dragenter="
+          (e) => {
+            e.preventDefault();
+          }
+        "
+        @dragover="
+          (e) => {
+            e.preventDefault();
+          }
+        "
+        @drop="dropDown"
+      ></div>
+    </div>
+    <div
+      v-if="viewType == '代码视图'"
+    >2</div>
   </div>
 </template>
 
@@ -31,6 +47,7 @@ export default {
   data() {
     return {
       currDraggedElm: null, //当前拖动元素
+      viewType: "界面视图",
     };
   },
   methods: {
@@ -45,10 +62,12 @@ export default {
           _elm.setAttribute("class", _elm.className);
         }
       }
-      e.target.setAttribute(
-        "class",
-        e.target.getAttribute("class") + " active"
-      );
+      if(!(e.target.className === "middle-wrap-content")) {
+        e.target.setAttribute(
+          "class",
+          e.target.getAttribute("class") + " active"
+        );
+      }
       this.$emit("setCurrFocusELm", e.target);
     },
 
@@ -73,6 +92,14 @@ export default {
       }
     },
 
+    viewTypeChange() {
+      if(this.viewType === "界面视图") {
+        this.$nextTick(()=>{
+          this.$parent.initView()
+        })
+      }
+    },
+
     dragStartCallback(event) {
       this.currDraggedElm = event.target.cloneNode(true);
     },
@@ -84,18 +111,23 @@ export default {
   display: flex;
   flex-direction: column;
   height: 100%;
-  .middle-wrap-title {
-    padding: 9px 0;
+  .middle-header {
+    padding: 5.5px 10px;
     box-shadow: 0px 3px 4px 0px rgb(231, 231, 231);
+    display: flex;
+    justify-content: space-between;
+    .middle-header-l {
+      padding-top: 5px;
+    }
+  }
+  .middle-wrap-view {
+    height: 100%;
   }
   /deep/.middle-wrap-content {
     flex: 1;
-    padding: 5px 0;
+    padding: 10px;
     overflow-y: auto;
     height: 100%;
-    .active {
-      background: rgba(87, 171, 228, 0.2);
-    }
   }
 }
 </style>

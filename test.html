@@ -4,24 +4,134 @@
 <head>
     <title></title>
     <style>
-        * {
-            padding: 0;
-            margin: 0;
-        }
-
-        body {
-            width: 100vw;
-            height: 100vh;
-        }
     </style>
 </head>
 
 <body>
+    <script>
+        class myPromise {
+            static PENDING = 'pending';
+            static FULFILLED = 'fulfilled';
+            static REJECTED = 'rejected';
+            status = null;
+            onFulfilled = [];
+            onRejected = [];
+            val = null;
+            reason = null;
+            constructor(callback) {
+                const _this = this
+                _this.status = myPromise.PENDING
+                _this.onFulfilled = []
+                _this.onRejected = []
+                _this.val = null
+                _this.reason = null
 
-    <div>Drag Me</div>
+                function resolve(val) {
+                    if (_this.status === myPromise.PENDING) {
+                        _this.status = myPromise.FULFILLED
+                        _this.val = val
+                        _this.onFulfilled.forEach(fn => fn(val))
+                    }
+                }
+                function reject(reason) {
+                    if (_this.status === myPromise.PENDING) {
+                        _this.status = myPromise.REJECTED
+                        _this.reason = reason
+                        _this.onRejected.forEach(fn => fn(val))
+                    }
+                }
+                try {
+                    callback(resolve, reject)
+                } catch (error) {
+                    reject(error)
+                }
+            }
 
-   
+            static race(promiseList) {
+                return new myPromise((resolve, reject) => {
+                    promiseList.map(item => {
+                        item.then((data) => {
+                            resolve(data)
+                        }, e => {
+                            reject(e)
+                        })
+                    })
+                })
+            }
 
+            static all(promiseList) {
+                let length = 0;
+                let res = [];
+                return new myPromise((resolve, reject) => {
+                    promiseList.map(item => {
+                        length++;
+                        item.then((data) => {
+                            res.push(data)
+                            if(length === promiseList.length) {
+                                resolve(res)
+                            }
+                        }, e => {
+                            reject(e)
+                        })
+                    })
+                })
+            }
+
+            then(resoveCallback, rejectCallback) {
+                const _this = this
+                let onResult = null
+                function resolveNext(callback, val, resolve, reject) {
+                    try {
+                        onResult = callback(val)
+                        if (onResult instanceof myPromise) {
+                            onResult.then(v => {
+                                resolve(v)
+                            }, e => {
+                                reject(e)
+                            })
+                        } else {
+                            resolve(onResult)
+                        }
+                    } catch (error) {
+                        reject(error)
+                    }
+                }
+                return new myPromise((resolve, reject) => {
+                    console.log(_this, this);
+                    if (_this.status === myPromise.FULFILLED) {
+                        resolveNext(resoveCallback,_this.val,resolve,reject)
+                    } else if (_this.status === myPromise.REJECTED) {
+                        resolveNext(rejectCallback,_this.val,resolve,reject)
+                    } else if (_this.status === myPromise.PENDING) {
+                        _this.onFulfilled.push((val) => {
+                            resolveNext(resoveCallback,val,resolve,reject)
+                        })
+                        _this.onRejected.push((reason) => {
+                            resolveNext(rejectCallback,reason,resolve,reject)
+                        })
+                    }
+                })
+            }
+        }
+
+        let promise1 = new myPromise((resolve,reject) => {
+            setTimeout(()=>{
+                resolve("1")
+            })
+        })
+        // let promise2 = new myPromise((resolve,reject) => {
+        //     resolve("2")
+        // })
+        // let promise3 = new myPromise((resolve,reject) => {
+        //     resolve("3")
+        // })
+
+        promise1.then(data => {
+            
+        })
+        
+
+    </script>
 </body>
 
 </html>

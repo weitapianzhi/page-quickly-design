@@ -4,6 +4,9 @@
       <a-form-model-item label="宽度" :label-col="labelCol" :wrapper-col="wrapperCol">
         <a-input :disabled="disabled" @change="(e) => styleChange('width', 'px', e)" v-model="form.width" style="width: 120px" suffix="px"></a-input>
       </a-form-model-item>
+      <a-form-model-item label="高度" :label-col="labelCol" :wrapper-col="wrapperCol">
+        <a-input :disabled="disabled" @change="(e) => styleChange('height', 'px', e)" v-model="form.height" style="width: 120px" suffix="px"></a-input>
+      </a-form-model-item>
     </a-form-model>
   </div>
 </template>
@@ -20,16 +23,16 @@ export default {
     currFocusElm: {
       deep: true,
       handler(elm) {
-        //to do..
+        this.form = {}
         if(elm.getAttribute("class").indexOf("middle-wrap-content") > -1) {
           this.currentNode = null
-          this.form = {}
           this.disabled = true
           return
         }
         this.disabled = false
         const val = elm.getAttribute("x-token")
         this.currentNode = this.utils.getParentInfoOfFeild(this.baseData, "$token", val)
+        console.log(this.currentNode);
         this.getStyleInfo(this.currentNode)
       }
     }
@@ -48,6 +51,7 @@ export default {
     };
   },
   methods: {
+    //获取初始化样式信息
     getStyleInfo(node) {
       const _el = node.$el;
       const obj = {}
@@ -56,10 +60,23 @@ export default {
       } else {
         obj.width = _el.offsetWidth
       }
+
+      if(_el.style.height) {
+        obj.height = _el.style.height.replace("px", "")
+      } else {
+        obj.height = _el.offsetHeight
+      }
+
+      Object.keys(obj).map(key => {
+        obj["old" + key] = obj[key]
+      })
+
       this.form = {
         ...obj
       }
     },
+
+    //样式修改
     styleChange(feild, extend, event) {
       if(!this.currentNode) return
       this.currentNode.$el.style[feild] = this.form[feild] + extend
@@ -67,8 +84,6 @@ export default {
         ...this.currentNode.$attr,
         ...this.currentNode.$el.attributes
       }
-
-      console.log(this.baseData);
     }
   },
 };
