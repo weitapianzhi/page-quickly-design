@@ -58,7 +58,7 @@ export default {
       const _elm = document.querySelector(".middle-wrap-content .active");
       const delIcon = document.querySelector("#activeDelIcon")
       if(e.target.className === "active-del-icon") {
-        return
+        return false
       }
       if (_elm) {
         delIcon.style.display = "none"
@@ -96,7 +96,7 @@ export default {
       this.utils.getXParentOfNode([this.baseData], e.target, _obj);
       if (!_obj.el) return;
       const _e = {
-        target: _obj.el.$el,
+        target: _obj.el,
       };
       this.handleClick(_e);
     },

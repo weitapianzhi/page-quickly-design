@@ -15,13 +15,13 @@
         <div class="component-item">
           <span class="component-item-title" title="纵向排序">纵向排序</span>
           <div class="vertical-wrap" v-dragged="{ dragStartCallback, dragCallback, dragendCallback }" style="display:flex; width: 100%; height: 100px; flex-direction: column">
-            <span>纵向排序</span>
+            <span style="height: 50px; line-height: 50px">纵向排序</span>
           </div>
         </div>
         <div class="component-item">
           <span class="component-item-title" title="按钮">按钮</span>
-          <a-button v-dragged="{ dragStartCallback, dragCallback, dragendCallback }"
-            >button</a-button
+          <button class="x-btn-default" v-dragged="{ dragStartCallback, dragCallback, dragendCallback }"
+            >button</button
           >
         </div>
         <div class="component-item">

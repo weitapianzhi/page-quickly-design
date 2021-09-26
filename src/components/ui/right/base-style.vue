@@ -48,7 +48,6 @@ export default {
       deep: true,
       handler(elm) {
         this.form = {}
-        console.log(elm);
         if(!elm.getAttribute || elm.getAttribute("class").indexOf("middle-wrap-content") > -1) {
           this.currentNode = null
           this.disabled = true
