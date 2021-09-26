@@ -29,6 +29,7 @@
         "
         @drop="dropDown"
       ></div>
+      <i id="activeDelIcon" @click="handleDelElm" title="删除元素" class="active-del-icon">x</i>
     </div>
     <div
       v-if="viewType == '代码视图'"
@@ -48,13 +49,19 @@ export default {
     return {
       currDraggedElm: null, //当前拖动元素
       viewType: "界面视图",
+      currentFocusElm: null, //当前获得焦点的元素
     };
   },
   methods: {
     //记录当前激活元素
     handleClick(e) {
       const _elm = document.querySelector(".middle-wrap-content .active");
+      const delIcon = document.querySelector("#activeDelIcon")
+      if(e.target.className === "active-del-icon") {
+        return
+      }
       if (_elm) {
+        delIcon.style.display = "none"
         if (typeof _elm.className === "object") {
           _elm.setAttribute("class", "");
         } else {
@@ -63,12 +70,25 @@ export default {
         }
       }
       if(!(e.target.className === "middle-wrap-content")) {
+        delIcon.style.display = "block"
+        e.target.appendChild(delIcon)
         e.target.setAttribute(
           "class",
           e.target.getAttribute("class") + " active"
         );
       }
+      this.currentFocusElm = e.target
       this.$emit("setCurrFocusELm", e.target);
+    },
+
+    //删除元素
+    handleDelElm() {
+      //to do
+      const delIcon = document.querySelector("#activeDelIcon")
+      const middleWrap = document.querySelector(".middle-wrap-view")
+      delIcon.style.display = "none"
+      middleWrap.appendChild(delIcon)
+      this.nodeDel(this.baseData, this.currentFocusElm)
     },
 
     handleDBLclick(e) {
@@ -108,6 +128,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .middle-wrap {
+  position:relative;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -122,12 +143,32 @@ export default {
   }
   .middle-wrap-view {
     height: 100%;
+    position: relative;
   }
   /deep/.middle-wrap-content {
     flex: 1;
     padding: 10px;
+    position: relative;
     overflow-y: auto;
     height: 100%;
+  }
+  .active-del-icon {
+    z-index: 99;
+    position: absolute;
+    background: red;
+    top: -8px;
+    color: white;
+    font-size: 19px;
+    right: -5px;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    border-radius: 25px;
+    display: none;
+    line-height: 20px;
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
 </style>

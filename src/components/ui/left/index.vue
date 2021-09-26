@@ -6,19 +6,28 @@
         <a-icon @click="handleHide" title="隐藏" class="icon-left" type="left" />
       </div>
       <div class="component">
-        <a-button v-dragged="{ dragStartCallback, dragCallback, dragendCallback }"
-          >button</a-button
-        >
-        <a-radio-group v-dragged="{ dragStartCallback, dragCallback, dragendCallback }">
-          <a-radio value="radio">raido1</a-radio>
-          <a-radio value="raido2">raido2</a-radio>
-          <a-radio value="raido3">raido3</a-radio>
-        </a-radio-group>
-        <a-steps v-dragged="{ dragStartCallback, dragCallback, dragendCallback }" direction="vertical" :current="1">
-          <a-step title="Finished" description="This is a description." />
-          <a-step title="In Progress" description="This is a description." />
-          <a-step title="Waiting" description="This is a description." />
-        </a-steps>
+        <div class="component-item">
+          <span class="component-item-title" title="横向排序">横向排序</span>
+          <div class="horizontal-wrap" v-dragged="{ dragStartCallback, dragCallback, dragendCallback }" style="display:flex; width: 100%; height: 100px; flex-direction: row">
+            <span>横向排序</span>
+          </div>
+        </div>
+        <div class="component-item">
+          <span class="component-item-title" title="纵向排序">纵向排序</span>
+          <div class="vertical-wrap" v-dragged="{ dragStartCallback, dragCallback, dragendCallback }" style="display:flex; width: 100%; height: 100px; flex-direction: column">
+            <span>纵向排序</span>
+          </div>
+        </div>
+        <div class="component-item">
+          <span class="component-item-title" title="按钮">按钮</span>
+          <a-button v-dragged="{ dragStartCallback, dragCallback, dragendCallback }"
+            >button</a-button
+          >
+        </div>
+        <div class="component-item">
+          <span class="component-item-title" title="单选按钮">单选按钮</span>
+          <a-radio v-dragged="{ dragStartCallback, dragCallback, dragendCallback }" value="radio">raido1</a-radio>
+        </div>
       </div>
     </div>
     <div v-if="hide" class="simple-wrap">
@@ -74,6 +83,34 @@ export default {
     height: 100%;
     overflow-y: auto;
     padding: 0 10px;
+    .component-item {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-bottom: 10px;
+      &:first-of-type {
+        margin-top: 10px;
+      }
+      .component-item-title {
+        width: 60px;
+        display: inline-block;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        word-break: normal;
+        white-space: nowrap;
+        margin-right: 10px;
+      }
+      .horizontal-wrap {
+        background: #eec8e9;
+        justify-content: center;
+        align-items: center;
+      }
+      .vertical-wrap {
+        background: #eec8e9;
+        justify-content: center;
+        align-items: center;
+      }
+    }
   }
 }
 .component-title {

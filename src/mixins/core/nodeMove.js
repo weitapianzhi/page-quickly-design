@@ -3,11 +3,6 @@ import storeMixin from "./storeMixin";
 export default {
   mixins: [ storeMixin ],
   methods: {
-    //节点移动
-    nodeMove(parentNode, curMoveNode) {
-      //to do ..
-    },
-
     //节点添加
     nodeAdd(parentNode, curMoveNode) {
       this.currDraggedElm.addEventListener("dragstart", (event) => {
@@ -36,7 +31,7 @@ export default {
       const isExist = this.utils.dataExist(this.baseData, curMoveNode)
       if(isExist) {
         //存在
-        this.nodeDel(this.baseData, curMoveNode)
+        this.nodeMove(this.baseData, curMoveNode)
       } else {
         //不存在
         const _curMoveNode = new BaseData(curMoveNode, "1")
@@ -58,6 +53,34 @@ export default {
     nodeDel(list,data) {
       const _data = this.utils.getParentInfoOfFeild(list, "$token", data.getAttribute("x-token"))
       const oldNode = this.utils.getParentInfoOfNode(list, data, "$token")
+      if(!oldNode) return
+      let index = null;
+      for (let _i in oldNode.$children) {
+        if(oldNode.$children[_i].$token == data.getAttribute("x-token")) {
+          index = _i
+        }
+      }
+      if(index !== null) {
+        oldNode.$children.splice(index, 1)
+      }
+      oldNode.$el.removeChild(_data.$el)
+      this.setPrev({
+        type: "add",
+        info: {
+          "del": {
+            oldNode: oldNode,
+            data: _data,
+            newNode: null
+          }
+        }
+      })
+    },
+
+    //节点移动
+    nodeMove(list, data) {
+      //to do ..
+      const _data = this.utils.getParentInfoOfFeild(list, "$token", data.getAttribute("x-token"))
+      const oldNode = this.utils.getParentInfoOfNode(list, data, "$token")
       const newNode = this.utils.getParentInfoOfFeild(list, "$token", data.parentNode.getAttribute("x-token"))
       if(!oldNode) return
       let index = null;
@@ -74,7 +97,8 @@ export default {
         info: {
           "move": {
             oldNode: oldNode,
-            data: _data
+            data: _data,
+            newNode: newNode
           }
         }
       })
