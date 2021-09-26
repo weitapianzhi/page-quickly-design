@@ -1,0 +1,27 @@
+.x-btn-base {
+  font-weight: 400;
+  cursor: pointer;
+  padding: 0 15px;
+  height: 32px;
+  font-size: 16px;
+  border: 1px solid #d9d9d9;
+}
+
+.x-btn-default {
+  @extend .x-btn-base;
+  background: white;
+  border-color: #d9d9d9;
+  &:hover {
+    border-color: rgba(26, 144, 255, .6);
+    color: rgba(26, 144, 255, .6)
+  }
+}
+
+.x-btn-blue {
+  @extend .x-btn-base;
+  background: #1890ff;
+  border-color: #1890ff;
+  &:hover {
+    color: white;
+  }
+}

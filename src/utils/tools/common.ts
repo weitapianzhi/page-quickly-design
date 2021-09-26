@@ -45,16 +45,16 @@ export default {
   },
 
   //查找最外层x-parent节点
-  getXParentOfNode(list: any, data: any, obj: any,parent: any): any {
+  getXParentOfNode(list: any, data: any, obj: any,parent: any = null): any {
+    if(parent === null) {
+      parent = document.querySelector(".middle-wrap-content")
+    }
     for(const i in list) {
       if(list[i].$token === data.getAttribute("x-token")) {
         obj.el = parent
       }
-      if(list[i].$el.getAttribute("x-parent") !== null) {
-        parent = list[i]
-      }
       if(list[i].$children.length > 0) {
-        this.getXParentOfNode(list[i].$children, data, obj, parent)
+        this.getXParentOfNode(list[i].$children, data, obj, list[i].$el)
       }
     }
   },
