@@ -13,6 +13,10 @@
       class="middle-wrap-view"
       v-if="viewType == '界面视图'"
     >
+      <div class="version-control">
+        <div :class="['version-control-prev', prev.length === 0 ? 'version-control-disabled': '']" @click="prevFunc">上一步</div>
+        <div :class="['version-control-next', next.length === 0 ? 'version-control-disabled': '']" @click="nextFunc">下一步</div>
+      </div>
       <div
         class="middle-wrap-content"
         @click="handleClick"
@@ -39,11 +43,15 @@
 
 <script>
 import nodeMove from "@/mixins/core/nodeMove.js";
+import storeUpdate from "@/mixins/core/storeUpdate.js";
 export default {
   name: "middleView",
   components: {},
   props: {},
-  mixins: [nodeMove],
+  mixins: [ 
+    nodeMove,
+    storeUpdate
+  ],
   computed: {},
   data() {
     return {
@@ -92,6 +100,7 @@ export default {
     },
 
     handleDBLclick(e) {
+      if(e.target.className === "middle-wrap-content") return
       const _obj = { el: null };
       this.utils.getXParentOfNode([this.baseData], e.target, _obj);
       if (!_obj.el) return;
@@ -144,14 +153,50 @@ export default {
   .middle-wrap-view {
     height: 100%;
     position: relative;
+    &:hover {
+      .version-control {
+        display: flex;
+      }
+    }
+    .version-control {
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: none;
+      flex-direction: row;
+      z-index: 98;
+      user-select: none;
+      .version-control-prev {
+        padding: 5px 10px;
+        background: #64c3f0;
+      }
+      .version-control-prev:not(.version-control-disabled ):hover {
+        cursor: pointer;
+        background: #c1e3f3;
+      }
+      .version-control-next {
+        margin-left: 5px;
+        background: #64c3f0;
+        padding: 5px 10px;
+      }
+      .version-control-next:not(.version-control-disabled ):hover {
+        cursor: pointer;
+        background: #c1e3f3;
+      }
+      .version-control-disabled {
+        cursor: not-allowed;
+        background: #e8e8e8;
+      }
+    } 
+    /deep/.middle-wrap-content {
+      flex: 1;
+      padding: 10px;
+      position: relative;
+      overflow-y: auto;
+      height: 100%;
+    }
   }
-  /deep/.middle-wrap-content {
-    flex: 1;
-    padding: 10px;
-    position: relative;
-    overflow-y: auto;
-    height: 100%;
-  }
+  
   .active-del-icon {
     z-index: 99;
     position: absolute;

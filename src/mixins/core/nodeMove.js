@@ -18,9 +18,10 @@ export default {
       if(parentNode.className.indexOf("middle-wrap-content") === -1) {
         if(parentNode.getAttribute("x-parent") === null) {
           this.utils.getXParentOfNode([ this.baseData ], parentNode, _obj)
-          parentNode = _obj.el.$el
+          parentNode = _obj.el
         }
       }
+      if(!parentNode) return
       parentNode.insertBefore(curMoveNode, null)
       this.nodeSave(parentNode, curMoveNode)
     },
@@ -42,7 +43,8 @@ export default {
           info: {
             "add": {
               oldNode: _parentNode,
-              data: _curMoveNode
+              data: _curMoveNode,
+              oldPosition: _parentNode.$children.length - 1
             }
           }
         })
@@ -70,7 +72,8 @@ export default {
           "del": {
             oldNode: oldNode,
             data: _data,
-            newNode: null
+            newNode: null,
+            oldPosition: index
           }
         }
       })
@@ -92,17 +95,18 @@ export default {
       if(index !== null) {
         oldNode.$children.splice(index, 1)
       }
+      newNode.$children.push(_data)
       this.setPrev({
         type: "add",
         info: {
           "move": {
             oldNode: oldNode,
             data: _data,
-            newNode: newNode
+            newNode: newNode,
+            oldPosition: index
           }
         }
       })
-      newNode.$children.push(_data)
     },
 
     //节点边界碰撞

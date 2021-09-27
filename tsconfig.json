@@ -34,7 +34,7 @@
     "tests/**/*.ts",
     "tests/**/*.tsx",
     "src/directives/index.js"
-  ],
+, "src/utils/tools/common.js"  ],
   "exclude": [
     "node_modules"
   ]
