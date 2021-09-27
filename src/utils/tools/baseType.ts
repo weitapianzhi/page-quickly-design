@@ -19,13 +19,12 @@ export class BaseData {
     el.setAttribute("x-token",this.$token.slice(0,8))
     this.$el = el
     this.$tagName = el.tagName.toLowerCase()
-    this.$attr = {
-      ...el.attributes
-    }
+    this.$attr = {}
+    this.setAttr("0")
     this.appendChild(el.children)
   }
 
-  appendChild(childrens: any) {
+  appendChild(childrens: any): void {
     this.$children = []
     const queue = [ ...childrens ]
     
@@ -35,4 +34,24 @@ export class BaseData {
       this.$children.unshift(_baseData)
     }
   }
+
+  setAttr(type: string): void {
+    if(type === "0") {
+      this.$el.attributes.forEach((i:any) => {
+        if(i.name === "class") {
+          this.$attr["className"] = i.value
+        } else if (i.name === "x-parent") {
+          this.$attr["x-parent"] = i.value
+        } else if(i.name === "style") {
+          this.$attr["style"] = i.value
+        } else if(i.name === "x-token") {
+          this.$attr["x-token"] = i.value
+        }
+      });
+    } else if(type === "1") {
+      //to do
+      this.$attr["style"] = this.$el.getAttribute("style")
+    }
+  }
 }
+

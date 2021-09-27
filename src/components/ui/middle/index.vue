@@ -46,13 +46,10 @@ import nodeMove from "@/mixins/core/nodeMove.js";
 import storeUpdate from "@/mixins/core/storeUpdate.js";
 export default {
   name: "middleView",
-  components: {},
-  props: {},
   mixins: [ 
     nodeMove,
     storeUpdate
   ],
-  computed: {},
   data() {
     return {
       currDraggedElm: null, //当前拖动元素

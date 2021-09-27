@@ -118,10 +118,8 @@ export default {
         val = this.form[feild] + this.unit[feild]
       }
       this.currentNode.$el.style[feild] = val
-      this.currentNode.$attr = {
-        ...this.currentNode.$attr,
-        ...this.currentNode.$el.attributes
-      }
+      this.currentNode.setAttr("1")
+      console.log(this.baseData);
     }
   },
 };
