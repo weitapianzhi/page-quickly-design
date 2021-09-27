@@ -36,6 +36,7 @@ export default {
       const _oldNode = data[key].oldNode
       const _newNode = data[key].newNode
       const _oldPosition =  data[key].oldPosition
+      const _newPosition = _newNode && _newNode.$children.findIndex(item => item == _data)
       const nextElm = _oldNode.$children[_oldPosition + 1] ? _oldNode.$children[_oldPosition + 1] : null
 
       //如果上一步是添加操作，则这里需要做删除操作并保存操作
@@ -58,7 +59,6 @@ export default {
           })
           break;
         case "del":
-          //to do
           _oldNode.$children.splice(_oldPosition,0,_data)
           _oldNode.$el.insertBefore(_data.$el, nextElm)
           this["set" + type]({
@@ -74,7 +74,20 @@ export default {
           })
           break;
         case "move":
-          //to do
+          _oldNode.$children.splice(_oldPosition,0,_data)
+          _oldNode.$el.insertBefore(_data.$el, nextElm)
+          _newNode.$children.splice(_newPosition, 1)
+          this["set" + type]({
+            type: "add",
+            info: {
+              "move": {
+                oldNode: _newNode,
+                data: _data,
+                newNode: _oldNode,
+                oldPosition: _newPosition
+              }
+            }
+          })
           break;
         default:
           break;
