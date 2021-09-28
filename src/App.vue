@@ -5,5 +5,13 @@
 </template>
 
 <style lang="scss">
-@import './src/styles/index'
+@import './src/styles/global';
+</style>
+
+<style lang="scss">
+@import './src/styles/component/index';
+</style>
+
+<style lang="scss">
+@import './src/styles/customStyle';
 </style>

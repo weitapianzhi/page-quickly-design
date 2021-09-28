@@ -3,6 +3,7 @@
     <div class="middle-header">
       <div class="middle-header-l">中间视图</div>
       <div class="middle-header-r">
+        <a-button class="mr-10">保存模版</a-button>
         <a-select v-model="viewType" @change="viewTypeChange">
           <a-select-option key="1" value="界面视图">界面视图</a-select-option>
           <a-select-option key="2" value="代码视图">代码视图</a-select-option>
