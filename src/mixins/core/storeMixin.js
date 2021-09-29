@@ -4,7 +4,11 @@ export default {
     ...mapState("storageData",{
       "prev": state => state.prev,
       "next": state => state.next,
-      "baseData": state => state.baseData 
+      "baseData": state => state.baseData,
+    }),
+    ...mapState("cssData",{
+      "customCss": state => state.customCss,
+      "defaultCss": state => state.defaultCss,
     })
   },
   methods: {
@@ -12,6 +16,10 @@ export default {
       "setPrev",
       "setNext",
       "setBaseData"
+    ]),
+    ...mapActions("cssData",[
+      "setCustomCss",
+      "setDefaultCss",
     ]),
   }
 }

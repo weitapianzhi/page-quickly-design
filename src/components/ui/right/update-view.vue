@@ -5,7 +5,7 @@
         <base-style :currFocusElm="currFocusElm"></base-style>
       </a-tab-pane>
       <a-tab-pane key="2" tab="脚本编写" force-render>
-        Content of Tab Pane 2
+        <css-setting></css-setting>
       </a-tab-pane>
       <a-tab-pane key="3" tab="接口测试" force-render>
         Content of Tab Pane 3
@@ -16,10 +16,12 @@
 
 <script>
 import baseStyle from "./base-style.vue";
+import cssSetting from "./css-setting.vue";
 export default {
   name: "updateView",
   components: {
-    baseStyle
+    baseStyle,
+    cssSetting
   },
   props: {
     currFocusElm: {}

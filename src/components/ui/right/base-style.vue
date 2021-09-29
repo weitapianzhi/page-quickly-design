@@ -119,7 +119,6 @@ export default {
       }
       this.currentNode.$el.style[feild] = val
       this.currentNode.setAttr("1")
-      console.log(this.baseData);
     }
   },
 };
