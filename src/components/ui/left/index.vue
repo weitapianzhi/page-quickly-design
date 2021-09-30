@@ -137,8 +137,8 @@ export default {
 }
 .simple-wrap {
   display: flex;
-  justify-content: center;
-  padding: 14px 10px 0 20px;
+  width: 30px;
+  padding: 14px 20px 0 0px;
   .icon-right {
     font-size: 1.2rem;
     &:hover {

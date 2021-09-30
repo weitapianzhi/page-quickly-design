@@ -7,6 +7,7 @@
         <a-select v-model="viewType" @change="viewTypeChange">
           <a-select-option key="1" value="界面视图">界面视图</a-select-option>
           <a-select-option key="2" value="代码视图">代码视图</a-select-option>
+          <a-select-option key="3" value="全屏视图">全屏视图</a-select-option>
         </a-select>
       </div>
     </div>

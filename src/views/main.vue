@@ -69,7 +69,6 @@ export default {
     background: rgb(235, 245, 189);
   }
   .r-wrap {
-    width: 200px;
     overflow: hidden;
   }
 }

@@ -35,7 +35,7 @@ export class BaseData {
     }
   }
 
-  setAttr(type: string): void {
+  setAttr(type: string, obj?: any): void {
     if(type === "0") {
       this.$el.attributes.forEach((i:any) => {
         if(i.name === "class") {
@@ -50,7 +50,11 @@ export class BaseData {
       });
     } else if(type === "1") {
       //to do
+      this.$el.style[obj.feild] = obj.val
       this.$attr["style"] = this.$el.getAttribute("style")
+    } else if(type === "2") {
+      this.$el.className = obj.val
+      this.$attr["className"] = obj.val
     }
   }
 }
