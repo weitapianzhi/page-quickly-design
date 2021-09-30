@@ -1,4 +1,4 @@
-import { BaseData } from "@/utils/tools/baseType.ts";
+import { XNode } from "@/utils/tools/baseType.ts";
 import storeMixin from "./storeMixin";
 export default {
   mixins: [ storeMixin ],
@@ -11,7 +11,7 @@ export default {
       if(curMoveNode === parentNode) return
       const isEmpty = this.utils.isEmpty(this.baseData)
       if(isEmpty) {
-        const parentElm = new BaseData(document.querySelector(".middle-wrap-content"))
+        const parentElm = new XNode(document.querySelector(".middle-wrap-content"))
         this.setBaseData(parentElm)
       }
       const _obj = { el: null }
@@ -35,7 +35,7 @@ export default {
         this.nodeMove(this.baseData, curMoveNode)
       } else {
         //不存在
-        const _curMoveNode = new BaseData(curMoveNode, "1")
+        const _curMoveNode = new XNode(curMoveNode, "1")
         const _parentNode = this.utils.getParentInfoOfFeild(this.baseData, "$token", parentNode.getAttribute("x-token"))
         _parentNode.$children.push(_curMoveNode)
         this.setPrev({

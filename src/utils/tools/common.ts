@@ -1,7 +1,10 @@
-import { BaseData, baseType } from "@/utils/tools/baseType";
+import { baseType } from "@/utils/tools/baseType";
+type objType = {
+  [key: string]: any
+}
 export default {
   //获取元素的上下左右边界位置
-  getNodeBorderInfo(elm: any): any {
+  getNodeBorderInfo(elm: HTMLElement): objType {
     const left = elm.offsetLeft
     const top = elm.offsetTop
     const right = elm.offsetLeft + elm.clientWidth
@@ -15,9 +18,9 @@ export default {
   },
 
   //根据整个节点信息获取父元素信息
-  getParentInfoOfNode(list: any, data: any, key: string): any {
+  getParentInfoOfNode(list: any, data: any, key: string): baseType {
     let queue = [ {...list} ]
-    let res: baseType = null
+    let res: baseType = {}
     
     const dataToken = data.getAttribute("x-token")
     
@@ -60,9 +63,9 @@ export default {
   },
 
   //根据部分字段获取节点信息
-  getParentInfoOfFeild(list: any, feild: any, value: any): any {
+  getParentInfoOfFeild(list: any, feild: any, value: any): baseType {
     let queue = [ list ]
-    let res: baseType = null
+    let res: baseType = {}
     
     while(queue.length > 0) {
       const currElm = queue.pop()
