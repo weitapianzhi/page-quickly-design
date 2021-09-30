@@ -144,6 +144,7 @@ export default {
       this.currentNode.setAttr("2", {
         val
       })
+      console.log(this.baseData);
       this.getStyleInfo(this.currentNode)
     },
 

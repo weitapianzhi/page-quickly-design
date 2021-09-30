@@ -1,4 +1,4 @@
-import { baseType } from "@/utils/tools/baseType";
+import { baseType, XNode } from "@/utils/tools/baseType";
 type objType = {
   [key: string]: any
 }
@@ -18,14 +18,14 @@ export default {
   },
 
   //根据整个节点信息获取父元素信息
-  getParentInfoOfNode(list: any, data: any, key: string): baseType {
+  getParentInfoOfNode(list: XNode, data: HTMLElement, key: string): baseType {
     let queue = [ {...list} ]
     let res: baseType = {}
     
     const dataToken = data.getAttribute("x-token")
     
     while(queue.length > 0) {
-      const currElm = queue.pop()
+      const currElm = queue.pop() as XNode
       if(currElm.$token === dataToken) {
         queue = []
         res = currElm
@@ -48,9 +48,9 @@ export default {
   },
 
   //查找最外层x-parent节点
-  getXParentOfNode(list: any, data: any, obj: any,parent: any = null): any {
-    if(parent === null) {
-      parent = document.querySelector(".middle-wrap-content")
+  getXParentOfNode(list: XNode[], data: HTMLElement, obj: any,parent: HTMLElement): void {
+    if(!parent) {
+      parent = document.querySelector(".middle-wrap-content") as HTMLElement
     }
     for(const i in list) {
       if(list[i].$token === data.getAttribute("x-token")) {
@@ -63,12 +63,12 @@ export default {
   },
 
   //根据部分字段获取节点信息
-  getParentInfoOfFeild(list: any, feild: any, value: any): baseType {
+  getParentInfoOfFeild(list: XNode, feild: string, value: string): baseType {
     let queue = [ list ]
     let res: baseType = {}
     
     while(queue.length > 0) {
-      const currElm = queue.pop()
+      const currElm = queue.pop() as XNode
       const currToken = currElm[feild]
       
       if(value && currToken == value) {
@@ -89,7 +89,7 @@ export default {
    * @param data 当前数据
    * @returns 
    */
-  dataExist( list: any,data: any):boolean {
+  dataExist( list: XNode,data: HTMLElement):boolean {
     //1.如果没有该属性则一定不存在
     if(!data.getAttribute("x-token")) return false
     //2.存在该属性

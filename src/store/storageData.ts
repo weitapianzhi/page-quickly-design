@@ -34,13 +34,13 @@ export default {
     },
   },
   actions: {
-    setPrev({ commit }:any, val: any): void {
+    setPrev({ commit }:any, val: updateDataType): void {
       commit("setPrev",val)
     },
-    setNext({ commit }:any, val: any): void {
+    setNext({ commit }:any, val: updateDataType): void {
       commit("setNext",val)
     },
-    setBaseData({ commit }:any, val: any): void {
+    setBaseData({ commit }:any, val: baseType): void {
       commit("setBaseData",val)
     },
   },

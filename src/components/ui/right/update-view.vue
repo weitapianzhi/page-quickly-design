@@ -78,7 +78,8 @@ export default {
   display: flex;
   flex-direction: column;
   /deep/.ant-tabs-content-animated {
-    flex: 1
+    flex: 1;
+    overflow: hidden;
   }
 }
 .simple-wrap {
