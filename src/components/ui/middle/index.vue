@@ -63,7 +63,19 @@ export default {
     //记录当前激活元素
     handleClick(e) {
       const _elm = document.querySelector(".middle-wrap-content .active");
-      const delIcon = document.querySelector("#activeDelIcon")
+      let delIcon = document.querySelector("#activeDelIcon")
+      if(!delIcon) {
+        const middleWrap = document.querySelector(".middle-wrap-view")
+        let dataset = Object.keys(middleWrap.dataset)[0]
+        delIcon = document.createElement("i")
+        delIcon.innerHTML = "x"
+        delIcon.setAttribute("id","activeDelIcon")
+        delIcon.setAttribute("title","删除元素")
+        delIcon.setAttribute("class","active-del-icon")
+        delIcon.setAttribute(`data-${dataset}`,"")
+        delIcon.addEventListener("click",this.handleDelElm)
+        middleWrap.appendChild(delIcon)
+      }
       if(e.target.className === "active-del-icon") {
         return false
       }

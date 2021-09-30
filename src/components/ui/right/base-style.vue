@@ -65,6 +65,14 @@ export default {
   },
   mixins: [ storeMixin ],
   watch: {
+    baseData: {
+      deep: true,
+      handler(val) {
+        this.form = {}
+        this.currentNode = null
+        this.disabled = true
+      }
+    },
     currFocusElm: {
       deep: true,
       handler(elm) {
@@ -193,6 +201,9 @@ export default {
   height: 100%;
   flex: 1;
   overflow-y:auto;
+  /deep/.ant-form-item {
+    margin-bottom: 10px;
+  }
 }
 .custom-css-modal {
   /deep/.ant-modal {
