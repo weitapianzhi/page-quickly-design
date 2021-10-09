@@ -77,10 +77,6 @@ export default {
     handleShow() {
       this.hide = false
     },
-
-    modalClose() {
-      this.showModal = false
-    }
   },
 };
 </script>
