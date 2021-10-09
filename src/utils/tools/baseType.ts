@@ -4,7 +4,8 @@ export type baseType = {
   $el?: HTMLElement | Element,
   $children?: XNode[],
   $tagName?: string,
-  $attr?: attrType
+  $attr?: attrType,
+  $on?: any
 }
 export type attrType = {
   "className"?: string,

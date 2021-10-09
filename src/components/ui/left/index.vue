@@ -6,6 +6,7 @@
         <a-icon @click="handleHide" title="隐藏" class="icon-left" type="left" />
       </div>
       <div class="component">
+        <a-button class="mt-10" @click="showModal = true">自定义组件</a-button>
         <div class="component-item">
           <span class="component-item-title" title="横向排序">横向排序</span>
           <div class="horizontal-wrap" v-dragged="{ dragStartCallback, dragCallback, dragendCallback }" style="display:flex; width: 100%; height: 100px; flex-direction: row">
@@ -33,15 +34,21 @@
     <div v-if="hide" class="simple-wrap">
       <a-icon @click="handleShow" title="显示" class="icon-right" type="right" />
     </div>
+    <custom-component @modalClose="modalClose" :showModal="showModal"></custom-component>
   </div>
 </template>
 
 <script>
+import customComponent from "./component/custom-component.vue";
 export default {
   name: "leftLayout",
+  components: {
+    customComponent
+  },
   data() {
     return {
-      hide: false
+      hide: false,
+      showModal: true
     };
   },
   methods: {
@@ -63,6 +70,10 @@ export default {
 
     handleShow() {
       this.hide = false
+    },
+
+    modalClose() {
+      this.showModal = false
     }
   },
 };
