@@ -6,6 +6,7 @@
         <a-icon @click="handleHide" title="隐藏" class="icon-left" type="left" />
       </div>
       <div class="component">
+        <span>基础组件</span>
         <div class="component-item">
           <span class="component-item-title" title="横向排序">横向排序</span>
           <div class="horizontal-wrap" v-dragged="{ dragStartCallback, dragCallback, dragendCallback }" style="display:flex; width: 100%; height: 100px; flex-direction: row">
@@ -28,20 +29,28 @@
           <span class="component-item-title" title="单选按钮">单选按钮</span>
           <a-radio v-dragged="{ dragStartCallback, dragCallback, dragendCallback }" value="radio">raido1</a-radio>
         </div>
+        <span>自定义组件</span>
+        <a-button style="width: 180px; margin:10px auto" @click="showModal = true">自定义</a-button>
       </div>
     </div>
     <div v-if="hide" class="simple-wrap">
       <a-icon @click="handleShow" title="显示" class="icon-right" type="right" />
     </div>
+    <custom-component :showModal="showModal" @modalClose="modalClose"></custom-component>
   </div>
 </template>
 
 <script>
+import customComponent from "./component/custom-component.vue";
 export default {
   name: "leftLayout",
+  components: {
+    customComponent
+  },
   data() {
     return {
-      hide: false
+      hide: false,
+      showModal: false
     };
   },
   methods: {
@@ -55,6 +64,10 @@ export default {
 
     dragendCallback(event) {
       this.$emit("dragendCallback", event);
+    },
+
+    modalClose() {
+      this.showModal = false
     },
 
     handleHide() {
