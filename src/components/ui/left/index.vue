@@ -36,7 +36,7 @@
     <div v-if="hide" class="simple-wrap">
       <a-icon @click="handleShow" title="显示" class="icon-right" type="right" />
     </div>
-    <custom-component :showModal="showModal" @modalClose="modalClose"></custom-component>
+    <custom-component @modalClose="modalClose" :showModal="showModal"></custom-component>
   </div>
 </template>
 
@@ -76,6 +76,10 @@ export default {
 
     handleShow() {
       this.hide = false
+    },
+
+    modalClose() {
+      this.showModal = false
     }
   },
 };

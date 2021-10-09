@@ -68,7 +68,7 @@ export default {
         const middleWrap = document.querySelector(".middle-wrap-view")
         let dataset = Object.keys(middleWrap.dataset)[0]
         delIcon = document.createElement("i")
-        delIcon.innerHTML = "x"
+          .innerHTML = "x"
         delIcon.setAttribute("id","activeDelIcon")
         delIcon.setAttribute("title","删除元素")
         delIcon.setAttribute("class","active-del-icon")
