@@ -52,8 +52,8 @@ export default {
         }
       }
     },
-    dragStartCallback(event) {
-      this.$refs.middleViewRef.dragStartCallback(event)
+    dragStartCallback(event, item) {
+      this.$refs.middleViewRef.dragStartCallback(event, item)
     },
   },
 };

@@ -2,7 +2,7 @@ export default {
   bind(el: any, binding: any) :void{
     el.draggable = true
     el.addEventListener("dragstart", (event: any): boolean => {
-      binding.value.dragStartCallback(event)
+      binding.value.dragStartCallback(event, binding.value.$val)
       return false
     })
     el.addEventListener("drag", (event: any): void => {

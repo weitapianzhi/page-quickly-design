@@ -140,7 +140,8 @@ export default {
       }
     },
 
-    dragStartCallback(event) {
+    dragStartCallback(event, item) {
+      console.log(item);
       this.currDraggedElm = event.target.cloneNode(true);
     },
   },

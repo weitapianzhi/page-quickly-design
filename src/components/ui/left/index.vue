@@ -7,27 +7,12 @@
       </div>
       <div class="component">
         <span>基础组件</span>
-        <div class="component-item">
-          <span class="component-item-title" title="横向排序">横向排序</span>
-          <div class="horizontal-wrap" v-dragged="{ dragStartCallback, dragCallback, dragendCallback }" style="display:flex; width: 100%; height: 100px; flex-direction: row">
-            <span>横向排序</span>
+        <div class="base-component">
+          <div class="component-item" v-for="item in componentList" :key="item.key"  v-dragged="{ dragStartCallback, dragCallback, dragendCallback, $val: item }">
+            <i :class="['iconfont',item.iconClassName]"></i>
+            <span>{{item.description}}</span>
+            <base-component :info="item" style="display: none"></base-component>
           </div>
-        </div>
-        <div class="component-item">
-          <span class="component-item-title" title="纵向排序">纵向排序</span>
-          <div class="vertical-wrap" v-dragged="{ dragStartCallback, dragCallback, dragendCallback }" style="display:flex; width: 100%; height: 100px; flex-direction: column">
-            <span style="height: 50px; line-height: 50px">纵向排序</span>
-          </div>
-        </div>
-        <div class="component-item">
-          <span class="component-item-title" title="按钮">按钮</span>
-          <button class="x-btn-default" v-dragged="{ dragStartCallback, dragCallback, dragendCallback }"
-            >button</button
-          >
-        </div>
-        <div class="component-item">
-          <span class="component-item-title" title="单选按钮">单选按钮</span>
-          <a-radio v-dragged="{ dragStartCallback, dragCallback, dragendCallback }" value="radio">raido1</a-radio>
         </div>
         <span>自定义组件</span>
         <a-button style="width: 180px; margin:10px auto" @click="showModal = true">自定义</a-button>
@@ -41,21 +26,28 @@
 </template>
 
 <script>
+import baseComponent from "./base-component.jsx";
+import componentList from "./json/component.json";
 import customComponent from "./component/custom-component.vue";
 export default {
   name: "leftLayout",
   components: {
-    customComponent
+    customComponent,
+    baseComponent
   },
   data() {
     return {
       hide: false,
-      showModal: false
+      showModal: false,
+      componentList: []
     };
   },
+  created() {
+    this.componentList = componentList
+  },
   methods: {
-    dragStartCallback(event) {
-      this.$emit("dragStartCallback", event);
+    dragStartCallback(event, item) {
+      this.$emit("dragStartCallback", event, item);
     },
 
     dragCallback(event) {
@@ -96,32 +88,21 @@ export default {
     height: 100%;
     overflow-y: auto;
     padding: 0 10px;
-    .component-item {
+    .base-component {
       display: flex;
       flex-direction: row;
-      align-items: center;
-      margin-bottom: 10px;
-      &:first-of-type {
-        margin-top: 10px;
-      }
-      .component-item-title {
-        width: 60px;
-        display: inline-block;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        word-break: normal;
-        white-space: nowrap;
-        margin-right: 10px;
-      }
-      .horizontal-wrap {
-        background: #eec8e9;
-        justify-content: center;
+      flex-wrap: wrap;
+      .component-item {
+        padding: 10px 0px;
+        display: flex;
+        flex-direction: column;
+        flex: 0 0 33%;
         align-items: center;
-      }
-      .vertical-wrap {
-        background: #eec8e9;
-        justify-content: center;
-        align-items: center;
+        &:hover {
+          background: rgb(124, 192, 255);
+          color: white;
+          cursor: pointer;
+        }
       }
     }
   }

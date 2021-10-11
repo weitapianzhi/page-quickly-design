@@ -1,0 +1,30 @@
+{
+  "id": "2856192",
+  "name": "page-fast-build",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-pfb",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "2932817",
+      "name": "按钮",
+      "font_class": "anniu",
+      "unicode": "e7fb",
+      "unicode_decimal": 59387
+    },
+    {
+      "icon_id": "9149471",
+      "name": "横向布局",
+      "font_class": "hengxiangbuju",
+      "unicode": "e71d",
+      "unicode_decimal": 59165
+    },
+    {
+      "icon_id": "9149487",
+      "name": "竖向布局",
+      "font_class": "shuxiangbuju",
+      "unicode": "e720",
+      "unicode_decimal": 59168
+    }
+  ]
+}

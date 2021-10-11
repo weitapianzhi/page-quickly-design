@@ -5,7 +5,7 @@ export default {
       default: () => ([])
     }
   },
-  render() {
+  render(h) {
     const { list } = this
     function iconType(item) {
       if (item.iconType !== '') {
@@ -14,7 +14,7 @@ export default {
         )
       } else if (item.iconClassName !== '') {
         return (
-          <a-icon class={item.iconClassName} />
+          <i class={item.iconClassName} />
         )
       }
     }
