@@ -29,7 +29,7 @@ export default {
     }
   },
   computed: {
-    ...mapState("storageData",{
+    ...mapState("xNodeData",{
       "prev": state => state.prev,
       "next": state => state.next,
       "baseData": state => state.baseData 
@@ -44,6 +44,7 @@ export default {
     },
 
     initView() {
+      console.log(this.baseData);
       if (this.baseData && !this.utils.isEmpty(this.baseData)) {
         if (this.baseData.$el.className.indexOf("middle-wrap-content") > -1) {
           document

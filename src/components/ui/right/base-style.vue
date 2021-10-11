@@ -117,7 +117,7 @@ export default {
   methods: {
     //获取初始化样式信息
     getStyleInfo(node) {
-      const _el = node.$el;
+      const _el = this.utils.getElementOfToken(node.$token)
       const obj = {}
       const regxUnit = /(px|%|vh)/g
       if(_el.style.width) {
@@ -150,7 +150,7 @@ export default {
         obj["old" + key] = obj[key]
       })
 
-      obj.className = node.$el.className
+      obj.className = _el.className
       obj.newClassName = ""
       obj.delClassName = ""
 
@@ -168,7 +168,6 @@ export default {
       this.currentNode.setAttr("2", {
         val
       })
-      console.log(this.baseData);
       this.getStyleInfo(this.currentNode)
     },
 

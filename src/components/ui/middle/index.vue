@@ -107,7 +107,8 @@ export default {
       const middleWrap = document.querySelector(".middle-wrap-view")
       delIcon.style.display = "none"
       middleWrap.appendChild(delIcon)
-      this.nodeDel(this.baseData, this.currentFocusElm)
+      // this.nodeDel(this.baseData, this.currentFocusElm)
+      this.nodeDel1(this.baseData1, this.currentFocusElm)
     },
 
     handleDBLclick(e) {

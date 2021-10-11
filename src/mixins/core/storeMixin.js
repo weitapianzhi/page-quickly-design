@@ -1,7 +1,7 @@
 import { mapActions, mapState } from "vuex";
 export default {
   computed: {
-    ...mapState("storageData",{
+    ...mapState("xNodeData",{
       "prev": state => state.prev,
       "next": state => state.next,
       "baseData": state => state.baseData,
@@ -12,7 +12,7 @@ export default {
     })
   },
   methods: {
-    ...mapActions("storageData",[
+    ...mapActions("xNodeData",[
       "setPrev",
       "setNext",
       "setBaseData"

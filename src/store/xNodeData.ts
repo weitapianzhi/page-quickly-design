@@ -1,4 +1,4 @@
-import { baseType } from "@/utils/tools/baseType";
+import { baseType } from "@/utils/tools/xNodeData";
 export type updateDataType = {
   type: "add" | "del",
   info: any

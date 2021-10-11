@@ -1,4 +1,4 @@
-import { XNode } from "@/utils/tools/baseType.ts";
+import { XNode } from "@/utils/tools/xNodeData.ts";
 import storeMixin from "./storeMixin";
 export default {
   mixins: [ storeMixin ],
@@ -35,7 +35,7 @@ export default {
         this.nodeMove(this.baseData, curMoveNode.elm)
       } else {
         //不存在
-        const _curMoveNode = new XNode(curMoveNode.elm, "1")
+        const _curMoveNode = new XNode(curMoveNode)
         const _parentNode = this.utils.getParentInfoOfFeild(this.baseData, "$token", parentNode.getAttribute("x-token"))
         _parentNode.$children.push(_curMoveNode)
         this.setPrev({
@@ -65,7 +65,7 @@ export default {
       if(index !== null) {
         oldNode.$children.splice(index, 1)
       }
-      oldNode.$el.removeChild(_data.$el)
+      this.utils.getElementOfToken(oldNode.$token).removeChild(this.utils.getElementOfToken(_data.$token))
       this.setPrev({
         type: "add",
         info: {

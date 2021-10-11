@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import storageData from "./storageData";
 import cssData from "./cssData";
+import xNodeData from "./xNodeData";
 
 Vue.use(Vuex)
 
@@ -13,7 +13,7 @@ export default new Vuex.Store({
   actions: {
   },
   modules: {
-    storageData,
-    cssData
+    cssData,
+    xNodeData
   }
 })

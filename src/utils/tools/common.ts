@@ -1,4 +1,4 @@
-import { baseType, XNode } from "@/utils/tools/baseType";
+import { baseType, XNode } from "@/utils/tools/xNodeData";
 type objType = {
   [key: string]: any
 }
@@ -18,9 +18,9 @@ export default {
   },
 
   //根据整个节点信息获取父元素信息
-  getParentInfoOfNode(list: XNode, data: HTMLElement, key: string): baseType {
+  getParentInfoOfNode(list: XNode, data: HTMLElement, key: string): baseType | null {
     let queue = [ {...list} ]
-    let res: baseType = {}
+    let res: baseType | null = null
     
     const dataToken = data.getAttribute("x-token")
     
@@ -57,7 +57,7 @@ export default {
         obj.el = parent
       }
       if(list[i].$children.length > 0) {
-        this.getXParentOfNode(list[i].$children, data, obj, list[i].$el)
+        this.getXParentOfNode(list[i].$children, data, obj, this.getElementOfToken(list[i].$token))
       }
     }
   },
@@ -129,6 +129,10 @@ export default {
     })
     
     return format
+  },
+
+  getElementOfToken(feild: string): HTMLElement {
+    return document.querySelector(`[x-token='${feild}']`) as HTMLElement 
   },
 
   //判断是否空对象
