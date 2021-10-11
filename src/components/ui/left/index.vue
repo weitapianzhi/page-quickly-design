@@ -11,7 +11,7 @@
           <div class="component-item" v-for="item in componentList" :key="item.key"  v-dragged="{ dragStartCallback, dragCallback, dragendCallback, $val: item }">
             <i :class="['iconfont',item.iconClassName]"></i>
             <span>{{item.description}}</span>
-            <base-component :info="item" style="display: none"></base-component>
+            <base-component class="base-component-wrap" :info="item"></base-component>
           </div>
         </div>
         <span>自定义组件</span>
@@ -98,6 +98,9 @@ export default {
         flex-direction: column;
         flex: 0 0 33%;
         align-items: center;
+        .base-component-wrap {
+          display: none !important
+        }
         &:hover {
           background: rgb(124, 192, 255);
           color: white;

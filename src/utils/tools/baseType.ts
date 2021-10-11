@@ -5,7 +5,8 @@ export type baseType = {
   $children?: XNode[],
   $tagName?: string,
   $attr?: attrType,
-  $on?: any
+  $on?: any,
+  ___xObj___?: any
 }
 export type attrType = {
   "className"?: string,

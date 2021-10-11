@@ -5,10 +5,10 @@ export default {
   methods: {
     //节点添加
     nodeAdd(parentNode, curMoveNode) {
-      this.currDraggedElm.addEventListener("dragstart", (event) => {
-        this.currDraggedElm = event.target
+      this.currDraggedElm.elm.addEventListener("dragstart", (event) => {
+        this.currDraggedElm.elm = event.target
       })
-      if(curMoveNode === parentNode) return
+      if(curMoveNode.elm === parentNode) return
       const isEmpty = this.utils.isEmpty(this.baseData)
       if(isEmpty) {
         const parentElm = new XNode(document.querySelector(".middle-wrap-content"))
@@ -22,20 +22,20 @@ export default {
         }
       }
       if(!parentNode) return
-      parentNode.insertBefore(curMoveNode, null)
+      parentNode.insertBefore(curMoveNode.elm, null)
       this.nodeSave(parentNode, curMoveNode)
     },
 
     //节点信息保存
     nodeSave(parentNode, curMoveNode) {
       //数据是否已经存在
-      const isExist = this.utils.dataExist(this.baseData, curMoveNode)
+      const isExist = this.utils.dataExist(this.baseData, curMoveNode.elm)
       if(isExist) {
         //存在
-        this.nodeMove(this.baseData, curMoveNode)
+        this.nodeMove(this.baseData, curMoveNode.elm)
       } else {
         //不存在
-        const _curMoveNode = new XNode(curMoveNode, "1")
+        const _curMoveNode = new XNode(curMoveNode.elm, "1")
         const _parentNode = this.utils.getParentInfoOfFeild(this.baseData, "$token", parentNode.getAttribute("x-token"))
         _parentNode.$children.push(_curMoveNode)
         this.setPrev({

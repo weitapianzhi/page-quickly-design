@@ -4,6 +4,9 @@
       <a-form-model-item label="宽度" :label-col="labelCol" :wrapper-col="wrapperCol">
         <a-input :disabled="disabled" @change="(e) => styleChange('width', e)" v-model="form.width">
           <a-select :disabled="disabled" slot="addonAfter" v-model="unit.width">
+            <a-select-option value="auto">
+              auto
+            </a-select-option>
             <a-select-option value="px">
               px
             </a-select-option>
@@ -19,6 +22,9 @@
       <a-form-model-item label="高度" :label-col="labelCol" :wrapper-col="wrapperCol">
         <a-input :disabled="disabled" @change="(e) => styleChange('height', e)" v-model="form.height">
           <a-select :disabled="disabled" slot="addonAfter" v-model="unit.height">
+            <a-select-option value="auto">
+              auto
+            </a-select-option>
             <a-select-option value="px">
               px
             </a-select-option>
@@ -115,16 +121,26 @@ export default {
       const obj = {}
       const regxUnit = /(px|%|vh)/g
       if(_el.style.width) {
-        this.unit.width = _el.style.width.match(regxUnit)[0]
-        obj.width = _el.style.width.replace(_el.style.width.match(regxUnit)[0],"")
+        if(_el.style.width === "auto") {
+          this.unit.width = "auto"
+          obj.width = "auto"
+        } else {
+          this.unit.width = _el.style.width.match(regxUnit) ? _el.style.width.match(regxUnit)[0] : ""
+          obj.width = _el.style.width.replace(this.unit.width,"")
+        }
       } else {
         obj.width = _el.offsetWidth
         this.unit.width = "px"
       }
 
       if(_el.style.height) {
-        this.unit.height = _el.style.height.match(regxUnit)[0]
-        obj.height = _el.style.height.replace(_el.style.height.match(regxUnit)[0], "")
+        if(_el.style.height === "auto") {
+          this.unit.height = "auto"
+          obj.height = "auto"
+        } else {
+          this.unit.height = _el.style.height.match(regxUnit) ? _el.style.height.match(regxUnit)[0] : ""
+          obj.height = _el.style.height.replace(this.unit.height, "")
+        }
       } else {
         obj.height = _el.offsetHeight
         this.unit.height = "px"
@@ -162,6 +178,8 @@ export default {
       let val = "";
       if(this.unit[feild] === undefined) {
         val = this.form[feild]
+      } else if(this.unit[feild] === "auto") {
+        val = "auto"
       } else {
         val = this.form[feild] + this.unit[feild]
       }

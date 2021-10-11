@@ -13,8 +13,8 @@ export default {
       attrs: {},
       domProps: {}
     }
-    if(info.description) {
-      _props.domProps.innerHTML = info.description
+    if(info.innerText && info.innerText !== "") {
+      _props.domProps.innerHTML = info.innerText
     }
     return h(info.tagName, _props)
   }

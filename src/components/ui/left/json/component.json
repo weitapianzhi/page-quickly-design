@@ -2,15 +2,18 @@
   "xid": "xButton",
   "tagName": "xButton",
   "description": "按钮",
+  "innerText": "按钮",
   "iconClassName": "icon-pfbanniu"
 },{
   "xid": "xHorizontalDiv",
   "tagName": "xHorizontalDiv",
   "description": "横向布局",
+  "innerText": "",
   "iconClassName": "icon-pfbhengxiangbuju"
 },{
   "xid": "xVerticalDiv",
   "tagName": "xVerticalDiv",
   "description": "纵向布局",
+  "innerText": "",
   "iconClassName": "icon-pfbshuxiangbuju"
 }]

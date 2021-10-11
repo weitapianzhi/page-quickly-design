@@ -122,10 +122,9 @@ export default {
     },
 
     dropDown(event) {
-      //to do
       const parentNode = event.target;
       //判断是否同一父节点下移动
-      if (parentNode != this.currDraggedElm.parentNode) {
+      if (parentNode != this.currDraggedElm.elm.parentNode) {
         this.nodeAdd(parentNode, this.currDraggedElm);
       } else {
         this.borderTouch(event, this.currDraggedElm);
@@ -141,8 +140,13 @@ export default {
     },
 
     dragStartCallback(event, item) {
-      console.log(item);
-      this.currDraggedElm = event.target.cloneNode(true);
+      const _elm = event.target.children[2].cloneNode(true)
+      _elm.setAttribute("class","x-elm-border")
+      _elm.setAttribute("draggable",true)
+      this.currDraggedElm = {
+        params: item,
+        elm: _elm
+      }
     },
   },
 };

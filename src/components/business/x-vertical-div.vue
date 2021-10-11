@@ -1,5 +1,5 @@
 <template>
-  <div style="display: flex; flex-direction: column; width: auto;height: 200px"></div>
+  <div style="display: flex; flex-direction: column; width: 200px;height: auto"></div>
 </template>
 
 <script>
