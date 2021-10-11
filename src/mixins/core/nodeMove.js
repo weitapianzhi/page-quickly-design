@@ -65,7 +65,7 @@ export default {
       if(index !== null) {
         oldNode.$children.splice(index, 1)
       }
-      this.utils.getElementOfToken(oldNode.$token).removeChild(this.utils.getElementOfToken(_data.$token))
+      oldNode.$el.removeChild(_data.$el)
       this.setPrev({
         type: "add",
         info: {

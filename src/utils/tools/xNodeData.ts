@@ -4,6 +4,7 @@ export type baseType = {
   $children?: XNode[],
   $attr?: attrType,
   $on?: any,
+  $el?: HTMLElement,
   ___xObj___?: xObjType
 }
 
@@ -26,6 +27,7 @@ export class XNode {
   $token: string
   $children: XNode[]
   $attr: attrType
+  $el: HTMLElement
   $on: any
   ___xObj___: xObjType
   constructor(current: any) {
@@ -40,10 +42,10 @@ export class XNode {
       innerText: current.params ? current.params.innerText : "",
       iconClassName: current.params ? current.params.iconClassName : "",
     }
-    const _elm = current.elm ? current.elm : current
-    _elm.setAttribute("x-token",this.$token)
-    _elm.setAttribute("x-parent",this.$token.slice(0,8))
-    this.setAttr("0", _elm)
+    this.$el = current.elm ? current.elm : current
+    this.$el.setAttribute("x-token",this.$token)
+    this.$el.setAttribute("x-parent",md5(this.$token).slice(0,8))
+    this.setAttr("0", this.$el)
   }
 
   appendChild(child: XNode): void {

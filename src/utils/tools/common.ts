@@ -57,7 +57,7 @@ export default {
         obj.el = parent
       }
       if(list[i].$children.length > 0) {
-        this.getXParentOfNode(list[i].$children, data, obj, this.getElementOfToken(list[i].$token))
+        this.getXParentOfNode(list[i].$children, data, obj, list[i].$el)
       }
     }
   },

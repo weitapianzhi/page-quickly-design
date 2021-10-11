@@ -19,22 +19,11 @@
         <div :class="['version-control-prev', prev.length === 0 ? 'version-control-disabled': '']" @click="prevFunc">上一步</div>
         <div :class="['version-control-next', next.length === 0 ? 'version-control-disabled': '']" @click="nextFunc">下一步</div>
       </div>
-      <div
-        class="middle-wrap-content"
-        @click="handleClick"
-        @dblclick="handleDBLclick"
-        @dragenter="
-          (e) => {
-            e.preventDefault();
-          }
-        "
-        @dragover="
-          (e) => {
-            e.preventDefault();
-          }
-        "
-        @drop="dropDown"
-      ></div>
+      <view-container
+        @handleClick="handleClick"
+        @handleDBLclick="handleDBLclick"
+        @dropDown="dropDown">
+      </view-container>
       <i id="activeDelIcon" @click="handleDelElm" title="删除元素" class="active-del-icon">x</i>
     </div>
     <div
@@ -46,8 +35,12 @@
 <script>
 import nodeMove from "@/mixins/core/nodeMove.js";
 import storeUpdate from "@/mixins/core/storeUpdate.js";
+import viewContainer from "./component/view-container.jsx";
 export default {
   name: "middleView",
+  components: {
+    viewContainer
+  },
   mixins: [ 
     nodeMove,
     storeUpdate
@@ -95,9 +88,13 @@ export default {
           "class",
           e.target.getAttribute("class") + " active"
         );
+        this.currentFocusElm = e.target
+        this.$emit("setCurrFocusELm", e.target);
+      } else {
+        this.currentFocusElm = e.target
+        this.$emit("setCurrFocusELm", null)
       }
-      this.currentFocusElm = e.target
-      this.$emit("setCurrFocusELm", e.target);
+      
     },
 
     //删除元素
@@ -108,7 +105,7 @@ export default {
       delIcon.style.display = "none"
       middleWrap.appendChild(delIcon)
       // this.nodeDel(this.baseData, this.currentFocusElm)
-      this.nodeDel1(this.baseData1, this.currentFocusElm)
+      this.nodeDel(this.baseData, this.currentFocusElm)
     },
 
     handleDBLclick(e) {

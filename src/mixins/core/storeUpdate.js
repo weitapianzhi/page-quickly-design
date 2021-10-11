@@ -1,5 +1,3 @@
-import { add } from "lodash";
-import { updateIf } from "typescript";
 import storeMixin from "./storeMixin.js";
 export default {
   mixins: [
@@ -44,11 +42,11 @@ export default {
       }
 
       if(_oldPosition !== null && _oldNode.$children[_oldPosition]) {
-        nextElm = this.utils.getElementOfToken(_oldNode.$children[_oldPosition].$token)
+        nextElm = _oldNode.$children[_oldPosition].$el
       }
 
-      const _oldNodeElm = this.utils.getElementOfToken(_oldNode.$token)
-      const _newNodeElm = this.utils.getElementOfToken(_data.$token)
+      const _oldNodeElm = _oldNode.$el
+      let _newNodeElm = _data.$el
       //如果上一步是添加操作，则这里需要做删除操作并保存操作
       //如果上一步是删除操作，则这里需要做添加操作并保存操作
       //如果上一步是节点间的移动操作，则这里还是做移动操作
@@ -69,6 +67,7 @@ export default {
           })
           break;
         case "del":
+          _newNodeElm = _data.$el
           _oldNode.$children.splice(_oldPosition,0,_data)
           _oldNodeElm.insertBefore(_newNodeElm, nextElm)
           this["set" + type]({

@@ -5,6 +5,7 @@ export default {
       "prev": state => state.prev,
       "next": state => state.next,
       "baseData": state => state.baseData,
+      "deleteDom": state => state.deleteDom
     }),
     ...mapState("cssData",{
       "customCss": state => state.customCss,
@@ -15,7 +16,8 @@ export default {
     ...mapActions("xNodeData",[
       "setPrev",
       "setNext",
-      "setBaseData"
+      "setBaseData",
+      "setDeleteDom"
     ]),
     ...mapActions("cssData",[
       "setCustomCss",

@@ -35,7 +35,7 @@ export default {
   },
   data() {
     return {
-      hide: false
+      hide: false,
     };
   },
   methods: {

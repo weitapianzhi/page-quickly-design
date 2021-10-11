@@ -7,6 +7,7 @@
     </section>
     <section class="r-wrap">
       <update-view :currFocusElm="currFocusElm"></update-view>
+      <slot></slot>
     </section>
   </div>
 </template>
@@ -44,7 +45,6 @@ export default {
     },
 
     initView() {
-      console.log(this.baseData);
       if (this.baseData && !this.utils.isEmpty(this.baseData)) {
         if (this.baseData.$el.className.indexOf("middle-wrap-content") > -1) {
           document

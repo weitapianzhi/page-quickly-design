@@ -2,7 +2,7 @@
   <div class="base-style-wrap">
     <a-form-model :model="form">
       <a-form-model-item label="宽度" :label-col="labelCol" :wrapper-col="wrapperCol">
-        <a-input :disabled="disabled" @change="(e) => styleChange('width', e)" v-model="form.width">
+        <a-input :disabled="disabled" @blur="(e) => styleChange('width', e)" v-model="form.width">
           <a-select :disabled="disabled" slot="addonAfter" v-model="unit.width">
             <a-select-option value="auto">
               auto
@@ -20,7 +20,7 @@
         </a-input>
       </a-form-model-item>
       <a-form-model-item label="高度" :label-col="labelCol" :wrapper-col="wrapperCol">
-        <a-input :disabled="disabled" @change="(e) => styleChange('height', e)" v-model="form.height">
+        <a-input :disabled="disabled" @blur="(e) => styleChange('height', e)" v-model="form.height">
           <a-select :disabled="disabled" slot="addonAfter" v-model="unit.height">
             <a-select-option value="auto">
               auto
@@ -71,27 +71,24 @@ export default {
   },
   mixins: [ storeMixin ],
   watch: {
-    baseData: {
-      deep: true,
-      handler(val) {
-        this.form = {}
-        this.currentNode = null
-        this.disabled = true
-      }
-    },
     currFocusElm: {
       deep: true,
       handler(elm) {
         this.form = {}
-        if(!elm.getAttribute || elm.getAttribute("class").indexOf("middle-wrap-content") > -1) {
+        if(elm == null) {
           this.currentNode = null
           this.disabled = true
-          return
+        } else {
+          if(!elm.getAttribute || elm.getAttribute("class").indexOf("middle-wrap-content") > -1) {
+            this.currentNode = null
+            this.disabled = true
+            return
+          }
+          this.disabled = false
+          const val = elm.getAttribute("x-token")
+          this.currentNode = this.utils.getParentInfoOfFeild(this.baseData, "$token", val)
+          this.getStyleInfo(this.currentNode)
         }
-        this.disabled = false
-        const val = elm.getAttribute("x-token")
-        this.currentNode = this.utils.getParentInfoOfFeild(this.baseData, "$token", val)
-        this.getStyleInfo(this.currentNode)
       }
     }
   },
@@ -117,7 +114,7 @@ export default {
   methods: {
     //获取初始化样式信息
     getStyleInfo(node) {
-      const _el = this.utils.getElementOfToken(node.$token)
+      const _el = node.$el
       const obj = {}
       const regxUnit = /(px|%|vh)/g
       if(_el.style.width) {
@@ -173,7 +170,7 @@ export default {
 
     //样式修改
     styleChange(feild, event) {
-      if(!this.currentNode) return
+      if(!this.currentNode.$el) return
       let val = "";
       if(this.unit[feild] === undefined) {
         val = this.form[feild]
@@ -182,10 +179,8 @@ export default {
       } else {
         val = this.form[feild] + this.unit[feild]
       }
-      this.currentNode.setAttr("1", {
-        feild,
-        val
-      })
+      this.currentNode.$el.style[feild] = val
+      this.currentNode.setAttr("1", this.currentNode.$el)
     },
 
     //展示样式编辑器

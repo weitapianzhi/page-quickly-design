@@ -12,6 +12,7 @@ export default {
      */
     prev: [], //记录上一步操作
     next: [], //记录下一步操作
+    deleteDom: {}, //被删除的dom
     baseData: {}, //原始数据
   },
   mutations: {
@@ -29,6 +30,14 @@ export default {
         //to do ..
       }
     },
+    setDeleteDom(state: any, obj: any):void {
+      if(obj.type == "add") {
+        state.deleteDom[obj.key] = obj.val
+      } else {
+        delete state.deleteDom[obj.key]
+      }
+    },
+
     setBaseData(state: any, val: baseType): void {
       state.baseData = val
     },
@@ -42,6 +51,9 @@ export default {
     },
     setBaseData({ commit }:any, val: baseType): void {
       commit("setBaseData",val)
+    },
+    setDeleteDom({ commit }:any, val: any): void {
+      commit("setDeleteDom",val)
     },
   },
 }
