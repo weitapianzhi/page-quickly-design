@@ -20,6 +20,8 @@
         <div :class="['version-control-next', next.length === 0 ? 'version-control-disabled': '']" @click="nextFunc">下一步</div>
       </div>
       <view-container
+        @setCurrDraggedElm="setCurrDraggedElm"
+        @dragStartCallback="dragStartCallback"
         @handleClick="handleClick"
         @handleDBLclick="handleDBLclick"
         @dropDown="dropDown">
@@ -93,8 +95,7 @@ export default {
       } else {
         this.currentFocusElm = e.target
         this.$emit("setCurrFocusELm", null)
-      }
-      
+      } //to do
     },
 
     //删除元素
@@ -139,13 +140,18 @@ export default {
 
     dragStartCallback(event, item) {
       const _elm = event.target.children[2].cloneNode(true)
-      _elm.setAttribute("class","x-elm-border")
+      _elm.setAttribute("class","x-elm-border " + _elm.className)
       _elm.setAttribute("draggable",true)
       this.currDraggedElm = {
         params: item,
         elm: _elm
       }
     },
+
+    setCurrDraggedElm(val) {
+      console.log(val);
+      this.currDraggedElm = val
+    }
   },
 };
 </script>

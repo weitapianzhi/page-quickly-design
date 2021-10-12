@@ -6,10 +6,10 @@
     </div>
     <a-tabs class="update-container" default-active-key="1" @change="currentTabs" size="small" v-if="!hide">
       <a-tab-pane key="1" tab="基本属性" force-render>
-        <base-style :currFocusElm="currFocusElm"></base-style>
+        <base-style ref="baseStyle"></base-style>
       </a-tab-pane>
       <a-tab-pane key="2" tab="脚本编写" force-render>
-        <js-setting :currFocusElm="currFocusElm"></js-setting>
+        <js-setting></js-setting>
       </a-tab-pane>
       <a-tab-pane key="3" tab="接口测试" force-render>
         Content of Tab Pane 3
@@ -30,9 +30,6 @@ export default {
     baseStyle,
     jsSetting
   },
-  props: {
-    currFocusElm: {},
-  },
   data() {
     return {
       hide: false,
@@ -41,6 +38,10 @@ export default {
   methods: {
     currentTabs(tab) {
       //to do..
+    },
+
+    setCurrFocusELm(val) {
+      this.$refs.baseStyle.setCurrFocusELm(val)
     }
   },
 };

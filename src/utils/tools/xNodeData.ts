@@ -54,7 +54,7 @@ export class XNode {
 
   setAttr(type: string, el?: any): void {
     if(type === "0") {
-      this.$attr["className"] = el.getAttribute("class") as string
+      this.$attr["className"] = el.getAttribute("class").replace("x-elm-border base-component-wrap ","") as string
       this.$attr["x-parent"] = el.getAttribute("x-parent") as string
       this.$attr["style"] = el.getAttribute("style") as string
       this.$attr["x-token"] = el.getAttribute("x-token") as string

@@ -1,5 +1,7 @@
 <template>
-  <div style="display: flex; flex-direction: column; width: 200px;height: auto"></div>
+  <div style="display: flex; flex-direction: column; width: 200px;height: auto">
+    <slot></slot>
+  </div>
 </template>
 
 <script>

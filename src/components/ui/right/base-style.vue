@@ -66,32 +66,7 @@
 import storeMixin from "@/mixins/core/storeMixin";
 export default {
   name: "baseStyle",
-  props: {
-    currFocusElm: {}
-  },
   mixins: [ storeMixin ],
-  watch: {
-    currFocusElm: {
-      deep: true,
-      handler(elm) {
-        this.form = {}
-        if(elm == null) {
-          this.currentNode = null
-          this.disabled = true
-        } else {
-          if(!elm.getAttribute || elm.getAttribute("class").indexOf("middle-wrap-content") > -1) {
-            this.currentNode = null
-            this.disabled = true
-            return
-          }
-          this.disabled = false
-          const val = elm.getAttribute("x-token")
-          this.currentNode = this.utils.getParentInfoOfFeild(this.baseData, "$token", val)
-          this.getStyleInfo(this.currentNode)
-        }
-      }
-    }
-  },
   data() {
     return {
       form: {},
@@ -112,6 +87,23 @@ export default {
     };
   },
   methods: {
+    setCurrFocusELm(elm) {
+      this.form = {}
+      if(elm == null) {
+        this.currentNode = null
+        this.disabled = true
+      } else {
+        if(!elm.getAttribute || elm.getAttribute("class").indexOf("middle-wrap-content") > -1) {
+          this.currentNode = null
+          this.disabled = true
+          return
+        }
+        this.disabled = false
+        const val = elm.getAttribute("x-token")
+        this.currentNode = this.utils.getParentInfoOfFeild(this.baseData, "$token", val)
+        this.getStyleInfo(this.currentNode)
+      }
+    },
     //获取初始化样式信息
     getStyleInfo(node) {
       const _el = node.$el

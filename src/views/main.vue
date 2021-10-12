@@ -6,8 +6,7 @@
       <middle-view ref="middleViewRef" @setCurrFocusELm="setCurrFocusELm"></middle-view>
     </section>
     <section class="r-wrap">
-      <update-view :currFocusElm="currFocusElm"></update-view>
-      <slot></slot>
+      <update-view ref="updateView"></update-view>
     </section>
   </div>
 </template>
@@ -22,12 +21,7 @@ export default {
   components: {
     left,
     updateView,
-    middleView
-  },
-  data() {
-    return {
-      currFocusElm: {}
-    }
+    middleView,
   },
   computed: {
     ...mapState("xNodeData",{
@@ -36,22 +30,9 @@ export default {
       "baseData": state => state.baseData 
     })
   },
-  mounted() {
-    this.initView();
-  },
   methods: {
     setCurrFocusELm(val) {
-      this.currFocusElm = val
-    },
-
-    initView() {
-      if (this.baseData && !this.utils.isEmpty(this.baseData)) {
-        if (this.baseData.$el.className.indexOf("middle-wrap-content") > -1) {
-          document
-            .querySelector("#app .wrap .middle-wrap .middle-wrap-view")
-            .replaceChild(this.baseData.$el, document.querySelector(".middle-wrap-content"));
-        }
-      }
+      this.$refs.updateView.setCurrFocusELm(val)
     },
     dragStartCallback(event, item) {
       this.$refs.middleViewRef.dragStartCallback(event, item)

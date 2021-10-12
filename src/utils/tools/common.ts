@@ -17,6 +17,27 @@ export default {
     }
   },
 
+  //获得当前节点信息
+  getCurrentXNode(list: XNode, data: HTMLElement): baseType | null {
+    let queue = [ {...list} ]
+    let res: baseType | null = null
+    
+    const dataToken = data.getAttribute("x-token")
+    
+    while(queue.length > 0) {
+      const currElm = queue.pop() as XNode
+      if(currElm.$token === dataToken) {
+        queue = []
+        res = currElm
+      } else {
+        if(currElm.$children.length > 0) {
+          queue.push(...currElm.$children)
+        }
+      }
+    }
+    return res
+  },
+
   //根据整个节点信息获取父元素信息
   getParentInfoOfNode(list: XNode, data: HTMLElement, key: string): baseType | null {
     let queue = [ {...list} ]

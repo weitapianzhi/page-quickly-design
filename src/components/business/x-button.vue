@@ -1,5 +1,9 @@
 <template>
-  <a-button>11</a-button>
+  <a-button>
+    <span>
+      <slot></slot>
+    </span>
+  </a-button>
 </template>
 
 <script>
