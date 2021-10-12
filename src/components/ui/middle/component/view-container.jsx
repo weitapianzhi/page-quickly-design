@@ -23,6 +23,7 @@ export default {
     handleClick(event) {
       if(!this.utils.isEmpty(this.baseData)) {
         const _current = this.utils.getCurrentXNode(this.baseData, event.target)
+        if(_current === null) return
         this.$emit("setCurrDraggedElm", {
           params: _current.___xObj___,
           elm: event.target

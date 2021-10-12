@@ -149,7 +149,6 @@ export default {
     },
 
     setCurrDraggedElm(val) {
-      console.log(val);
       this.currDraggedElm = val
     }
   },
