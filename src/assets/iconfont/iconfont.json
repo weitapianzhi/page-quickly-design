@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "240132",
+      "name": "radio_box",
+      "font_class": "radiobox",
+      "unicode": "e75b",
+      "unicode_decimal": 59227
+    },
+    {
       "icon_id": "2932817",
       "name": "按钮",
       "font_class": "anniu",

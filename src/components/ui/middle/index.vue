@@ -20,8 +20,10 @@
         <div :class="['version-control-next', next.length === 0 ? 'version-control-disabled': '']" @click="nextFunc">下一步</div>
       </div>
       <view-container
+        ref="viewContainer"
         @setCurrDraggedElm="setCurrDraggedElm"
         @dragStartCallback="dragStartCallback"
+        @borderTouch="borderTouch"
         @handleClick="handleClick"
         @handleDBLclick="handleDBLclick"
         @dropDown="dropDown">
@@ -29,8 +31,12 @@
       <i id="activeDelIcon" @click="handleDelElm" title="删除元素" class="active-del-icon">x</i>
     </div>
     <div
-      v-if="viewType == '代码视图'"
-    >2</div>
+      v-else-if="viewType == '代码视图'"
+    >
+      <code-container
+        ref="codeContainer"
+      ></code-container>
+    </div>
   </div>
 </template>
 
@@ -38,10 +44,12 @@
 import nodeMove from "@/mixins/core/nodeMove.js";
 import storeUpdate from "@/mixins/core/storeUpdate.js";
 import viewContainer from "./component/view-container.jsx";
+import codeContainer from "./component/code-container.jsx";
 export default {
   name: "middleView",
   components: {
-    viewContainer
+    viewContainer,
+    codeContainer
   },
   mixins: [ 
     nodeMove,
@@ -133,7 +141,7 @@ export default {
     viewTypeChange() {
       if(this.viewType === "界面视图") {
         this.$nextTick(()=>{
-          this.$parent.initView()
+          this.$refs.viewContainer.initData()
         })
       }
     },

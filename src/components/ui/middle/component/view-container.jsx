@@ -45,6 +45,15 @@ export default {
       event.preventDefault();
     },
 
+    handleDragStart() {
+      const _current = this.utils.getCurrentXNode(this.baseData, event.target)
+        if(_current === null) return
+      this.$emit("setCurrDraggedElm", {
+        params: _current.___xObj___,
+        elm: event.target
+      })
+    },
+
     initView(data) {
       if(data.$children && data.$children.length > 0) {
         return (<div
@@ -55,6 +64,7 @@ export default {
           onDblclick={this.handleDBLclick}
           onDragenter={this.handleDragMove}
           onDragover={this.handleDragMove}
+          onDragstart={this.handleDragStart}
           onDrop={this.handleDrop}
         >
           {...this.createElm(data.$children)}

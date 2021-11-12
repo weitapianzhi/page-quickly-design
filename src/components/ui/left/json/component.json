@@ -16,4 +16,10 @@
   "description": "纵向布局",
   "innerText": "",
   "iconClassName": "icon-pfbshuxiangbuju"
+},{
+  "xid": "xRadio",
+  "tagName": "xRadio",
+  "description": "单选按钮",
+  "innerText": "",
+  "iconClassName": "icon-pfbradiobox"
 }]

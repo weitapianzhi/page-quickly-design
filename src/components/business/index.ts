@@ -3,6 +3,7 @@ import xTable from "./x-table.vue";
 import xButton from "./x-button.vue";
 import xHorizontalDiv from "./x-horizontal-div.vue";
 import xVerticalDiv from "./x-vertical-div.vue";
+import xRadio from "./x-radio.vue";
 import { VueConstructor } from "vue";
 
 
@@ -11,7 +12,8 @@ export const components = {
   xNavigate,
   xButton,
   xHorizontalDiv,
-  xVerticalDiv
+  xVerticalDiv,
+  xRadio
 }
 
 function install(Vue: VueConstructor<Vue>): void {
