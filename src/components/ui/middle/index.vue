@@ -180,6 +180,7 @@ export default {
   .middle-wrap-view {
     height: 100%;
     position: relative;
+    overflow: hidden;
     &:hover {
       .version-control {
         display: flex;
@@ -235,6 +236,8 @@ export default {
     width: 25px;
     height: 25px;
     text-align: center;
+    margin-right: 0px;
+    letter-spacing: 0px;
     border-radius: 25px;
     display: none;
     line-height: 20px;

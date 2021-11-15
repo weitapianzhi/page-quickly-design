@@ -112,12 +112,13 @@ export default {
     //节点边界碰撞
     borderTouch(event, curMoveNode) {
       const isOutBorder = this.isOutBorder(event)
-      const childElms = curMoveNode.parentNode.children
+      const childElms = curMoveNode.elm.parentNode.children
       //1.判断当前元素下是否只有一个元素，并且移动的范围属于当前父节点下
       if(childElms.length > 1) {
         //是否超过父元素边界
         if(isOutBorder) {
           //超过
+          console.log(event, curMoveNode);
         } else {
           //没超过
           //判断当前放下的点是否在某个元素前后
@@ -128,29 +129,29 @@ export default {
           let touchDirection = null
           for (const _elm of childElms) {
             const _elmBorder = this.utils.getNodeBorderInfo(_elm)
-            if(_elmBorder.left <= mouseUpX && mouseUpX <= _elmBorder.left + 15) {
+            if(_elmBorder.left <= mouseUpX && mouseUpX <= _elmBorder.left + 30) {
               touchDirection = "left"
               afterElm = _elm
             }
-            if(_elmBorder.right - 15 <= mouseUpX && mouseUpX <= _elmBorder.right) {
+            if(_elmBorder.right - 30 <= mouseUpX && mouseUpX <= _elmBorder.right + 30) {
               touchDirection = "right"
               beforeElm = _elm
             }
-            if(_elmBorder.top - 15 <= mouseUpY && mouseUpY <= _elmBorder.top + 15) {
+            if(_elmBorder.top - 30 <= mouseUpY && mouseUpY <= _elmBorder.top + 30) {
               touchDirection = "top"
               afterElm = _elm
             }
-            if(_elmBorder.bottom - 15 <= mouseUpY && mouseUpY <= _elmBorder.bottom + 15) {
+            if(_elmBorder.bottom - 30 <= mouseUpY && mouseUpY <= _elmBorder.bottom + 30) {
               touchDirection = "bottom"
               beforeElm = _elm
             }
           }
           if(afterElm) {
             //to do .. 
-            event.target.insertBefore(curMoveNode,afterElm)
+            event.target.insertBefore(curMoveNode.elm,afterElm)
           } else if(beforeElm) {
             //to do ..
-            event.target.insertBefore(beforeElm,curMoveNode)
+            event.target.insertBefore(beforeElm,curMoveNode.elm)
           }
         }
       }
@@ -159,7 +160,6 @@ export default {
     isOutBorder(event) {
       const mouseUpX = event.clientX
       const mouseUpY = event.clientY
-
       const parentBorderInfo = this.utils.getNodeBorderInfo(event.target)
       if(mouseUpY > parentBorderInfo.bottom || mouseUpY < parentBorderInfo.top || mouseUpX > parentBorderInfo.right || mouseUpX < parentBorderInfo.left) {
         return true

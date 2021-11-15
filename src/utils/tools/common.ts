@@ -7,8 +7,11 @@ export default {
   getNodeBorderInfo(elm: HTMLElement): objType {
     const left = elm.offsetLeft
     const top = elm.offsetTop
-    const right = elm.offsetLeft + elm.clientWidth
-    const bottom = elm.offsetTop + elm.clientHeight
+    const leftWrapWidth = (<HTMLElement>document.querySelector(".l-wrap")).offsetWidth
+    const middleTopWrapHeight = (<HTMLElement>document.querySelector(".middle-header")).offsetHeight
+
+    const right = elm.offsetLeft + elm.clientWidth + leftWrapWidth
+    const bottom = elm.offsetTop + elm.clientHeight + middleTopWrapHeight
     return {
       left,
       top,
